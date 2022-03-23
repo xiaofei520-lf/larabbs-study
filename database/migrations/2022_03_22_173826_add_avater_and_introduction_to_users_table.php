@@ -29,7 +29,7 @@ return new class extends Migration
     {
         //users表中删除两字段
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('avatar');
+            $table->dropColumn('acatar');
             $table->dropColumn('introduction');
         });
     }
