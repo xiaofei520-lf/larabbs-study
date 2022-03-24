@@ -26,9 +26,14 @@
       </div>
       <hr>
       {{-- 用户发布的内容 --}}
-      <div class="card ">
+      {{-- 用户发布的内容 --}}
+      <div class="card">
         <div class="card-body">
-          <h1 class="mb-0" style="font-size:22px;">暂无数据~_~</h1>
+          <ul class="nav nav-tabs">
+            <li class="nav-item"><a class="nav-link active bg-transparent" href="#">Ta 的话题</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Ta 的回复</a></li>
+          </ul>
+          @include('users._topics', ['topics' => $user->topics()->recent()->paginate(5)])
         </div>
       </div>
 
