@@ -6,13 +6,17 @@ use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TopicRequest;
-
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 class TopicsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
+
+
+
 
 	public function index(Request $resquest,Topic $topic)
 	{
@@ -28,16 +32,26 @@ class TopicsController extends Controller
     {
         return view('topics.show', compact('topic'));
     }
-
+    //创建帖子
 	public function create(Topic $topic)
 	{
-		return view('topics.create_and_edit', compact('topic'));
+        $categories = Category::all();
+        return view('topics.create_and_edit',compact('topic','categories'));
 	}
-
-	public function store(TopicRequest $request)
+	/**
+	 * store() 方法的第二个参数，会创建一个空白的 $topic 实例；
+     * $topic->fill($request->all()); fill 方法会将传参的键值数组填充到模型的属性中，
+     * Auth::id() 获取到的是当前登录的 ID；
+     * $topic->save() 保存到数据库中。
+	 * @Auther 小菜鸟阿飞
+	 * @Date 2022/3/24 14:09
+	 */
+	public function store(TopicRequest $request,Topic $topic)
 	{
-		$topic = Topic::create($request->all());
-		return redirect()->route('topics.show', $topic->id)->with('message', 'Created successfully.');
+        $topic->fill($request->all());
+        $topic->user_id = Auth::id();
+        $topic->save();
+		return redirect()->route('topics.show', $topic->id)->with('success', '帖子创建成功');
 	}
 
 	public function edit(Topic $topic)
