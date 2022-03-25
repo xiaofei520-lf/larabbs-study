@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (app()->isLocal()) {
+            $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
+        }
     }
 
     /**
@@ -29,4 +31,5 @@ class AppServiceProvider extends ServiceProvider
         //
         \Illuminate\Pagination\Paginator::useBootstrap();
     }
+
 }
