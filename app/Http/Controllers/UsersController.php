@@ -26,13 +26,12 @@ class UsersController extends Controller
     public function update(UserRequest $request, ImageUploadHandler $uploader,User $user){
         $this->authorize('update', $user);
         $data = $request->all();
-        if($request->acatar){
-            $result = $uploader->save($request->acatar,'acatar',$user->id,416);
+        if($request->avatar){
+            $result = $uploader->save($request->avatar,'avatar',$user->id,416);
             if($result){
-                $data['acatar'] = $result['path'];
+                $data['avatar'] = $result['path'];
             }
         }
-
         $user->update($data);
         return redirect()->route('users.show',$user->id)->with('success','个人资料更新成功');
     }

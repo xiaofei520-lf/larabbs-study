@@ -15,7 +15,7 @@ return new class extends Migration
     {
         //往users表中添加两字段 string类型 且可以为空
         Schema::table('users', function (Blueprint $table) {
-            $table->string('acatar')->nullable();//string 且可以为空
+            $table->string('avatar')->nullable();//string 且可以为空
             $table->string('introduction')->nullable();
         });
     }
@@ -29,7 +29,7 @@ return new class extends Migration
     {
         //users表中删除两字段
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('acatar');
+            $table->dropColumn('avatar');
             $table->dropColumn('introduction');
         });
     }

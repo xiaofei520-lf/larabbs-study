@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
             'name' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,' . Auth::id(),
             'email' => 'required|email',
             'introduction' => 'max:80',
-            'acatar' => 'mimes:png,jpg,gif,jpeg|dimensions:min_width=208,min_height=208',
+            'avatar' => 'mimes:png,jpg,gif,jpeg|dimensions:min_width=208,min_height=208',
         ];
     }
 
@@ -40,8 +40,8 @@ class UserRequest extends FormRequest
             'email.required'  =>'邮箱必填',
             'email.email'  =>'邮箱格式不正确',
             'introduction.max'  =>'简介最多不能超过80个字符',
-            'acatar.mimes' =>'头像必须是 png, jpg, gif, jpeg 格式的图片',
-            'acatar.dimensions' => '图片的清晰度不够，宽和高需要 208px 以上',
+            'avatar.mimes' =>'头像必须是 png, jpg, gif, jpeg 格式的图片',
+            'avatar.dimensions' => '图片的清晰度不够，宽和高需要 208px 以上',
         ];
     }
 }

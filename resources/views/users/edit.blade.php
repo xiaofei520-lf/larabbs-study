@@ -30,10 +30,10 @@
             </div>
             <div class="mb-4">
               <label for="" class="avatar-label form-label">用户头像</label>
-              <input type="file" name="acatar" class="form-control">
-              @if($user->acatar)
+              <input type="file" name="avatar" class="form-control">
+              @if($user->avatar)
                 <br>
-                <img class="thumbnail img-responsive" src="{{ $user->acatar }}" width="200" />
+                <img class="thumbnail img-responsive" src="{{ $user->avatar }}" width="200" />
               @endif
             </div>
             <div class="well well-sm">
