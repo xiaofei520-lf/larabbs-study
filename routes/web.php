@@ -45,11 +45,13 @@ Route::post('email/resend', 'Auth\VerificationController@resend')->name('verific
 Route::resource('users','UsersController',['only'=>['show',
     'update','edit']]);
 //帖子
-Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('topics', 'TopicsController', ['only' => ['index','create', 'store', 'update', 'edit', 'destroy']]);
 //分类 话题
 Route::resource('categories','CategoriesController',['only'=>['show']]);
 //编辑器图片上传
 Route::post('uplad_image','TopicsController@uploadImage')->name('topics.upload_image');
 
 
-Route::resource('replies', 'RepliesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('replies', 'RepliesController', ['only' => ['store','destroy']]);
+
+Route::get('topics/{topic}/{slug?}','TopicsController@show')->name('topics.show');
