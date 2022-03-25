@@ -9,10 +9,25 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\MustVerifyEmail as MustverifyEmailTrait;
 use App\Models\Reply;
+use Illuminate\Support\Facades\Auth;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable,MustverifyEmailTrait;
+    use Notifiable {
+        notify as protected laravelNotify;
+    }
+    public function notify($instance){
+        //如果要通知的是当前用户，就不必通知了
+        if($this->id == Auth::id()){
+            return ;
+        }
 
+        //只有数据库类型通知才需提醒，直接发送 Email 或者其他的Pass
+        if(method_exists($instance,'toDatabase')){
+            $this->increment('notification_count');
+        }
+        $this->laravelNotify($instance);
+    }
     /**
      * The attributes that are mass assignable.
      * $fillable 属性的作用是防止用户随意修改模型数据，只有在此属性里定义的字段，才允许修改，否则更新时会被忽略
