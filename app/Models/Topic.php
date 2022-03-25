@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use App\Models\Reply;
 class Topic extends Model
 {
     use HasFactory;
@@ -37,4 +37,8 @@ class Topic extends Model
         //此时会自动触发框架对数据模型 update_at 时间戳的更新
         return $query->orderBy('updated_at','desc');
     }
+    public function replies(){
+        return $this->hasMany(Reply::class);
+    }
+
 }
