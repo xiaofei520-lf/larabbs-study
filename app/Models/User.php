@@ -10,12 +10,14 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\MustVerifyEmail as MustverifyEmailTrait;
 use App\Models\Reply;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable,MustverifyEmailTrait;
     use Notifiable {
         notify as protected laravelNotify;
     }
+    use HasRoles;
     public function notify($instance){
         //如果要通知的是当前用户，就不必通知了
         if($this->id == Auth::id()){
